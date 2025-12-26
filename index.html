@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ========================================================= -->
+    <!-- BASIC META CONFIGURATION                                  -->
+    <!-- ========================================================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🎄 Merry Christmas | Santa's Winter Wonderland</title>
+
+    <!-- ========================================================= -->
+    <!-- GOOGLE FONTS (INLINE IMPORT)                               -->
+    <!-- ========================================================= -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Mountains+of+Christmas:wght@700&display=swap');
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- GLOBAL CSS VARIABLES                                      -->
+    <!-- ========================================================= -->
+    <style>
+        :root {
+            --red: #c1121f;
+            --dark-red: #780000;
+            --green: #0b8457;
+            --white: #ffffff;
+            --gold: #ffd166;
+            --glass-bg: rgba(255,255,255,0.15);
+            --blur: blur(12px);
+            --shadow: 0 20px 40px rgba(0,0,0,0.3);
+            --transition: all 0.4s ease;
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- RESET & BASE STYLES                                       -->
+    <!-- ========================================================= -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #1a2a6c, #0f2027);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-family: inherit;
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- SNOW CANVAS                                              -->
+    <!-- ========================================================= -->
+    <style>
+        #snowCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- CHRISTMAS LIGHTS                                         -->
+    <!-- ========================================================= -->
+    <style>
+        .lights {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: fixed;
+            top: 10px;
+            width: 100%;
+            z-index: 5;
+        }
+
+        .light {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            animation: glow 2s infinite alternate;
+        }
+
+        .light.red { background: red; }
+        .light.green { background: lime; }
+        .light.gold { background: gold; }
+
+        .light:nth-child(odd) { animation-delay: 1s; }
+
+        @keyframes glow {
+            from { opacity: 0.3; box-shadow: none; }
+            to { opacity: 1; box-shadow: 0 0 15px currentColor; }
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- HERO SECTION                                             -->
+    <!-- ========================================================= -->
+    <style>
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: clamp(3rem, 6vw, 6rem);
+            margin-bottom: 20px;
+            animation: fadeDown 1.5s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 2s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- COUNTDOWN TIMER                                          -->
+    <!-- ========================================================= -->
+    <style>
+        .countdown {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            min-width: 100px;
+            transition: var(--transition);
+        }
+
+        .time-box:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .time-box h2 {
+            font-size: 2rem;
+        }
+
+        .time-box span {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- GIFT SECTION                                             -->
+    <!-- ========================================================= -->
+    <style>
+        .gifts {
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 3;
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .gift {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+        }
+
+        .gift:hover::before {
+            animation: shine 1s;
+        }
+
+        .gift:hover {
+            transform: translateY(-15px) rotate(-1deg);
+        }
+
+        @keyframes shine {
+            to { transform: translateX(100%); }
+        }
+    </style>
+
+    <!-- ========================================================= -->
+    <!-- FOOTER                                                   -->
+    <!-- ========================================================= -->
+    <style>
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- ========================================================= -->
+    <!-- CHRISTMAS LIGHTS BAR                                     -->
+    <!-- ========================================================= -->
+    <div class="lights">
+        <div class="light red"></div>
+        <div class="light green"></div>
+        <div class="light gold"></div>
+        <div class="light red"></div>
+        <div class="light green"></div>
+        <div class="light gold"></div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- SNOW CANVAS                                              -->
+    <!-- ========================================================= -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- ========================================================= -->
+    <!-- HERO SECTION                                             -->
+    <!-- ========================================================= -->
+    <section class="hero">
+        <div>
+            <h1>🎅 Merry Christmas 🎄</h1>
+            <p>Welcome to Santa's Magical Winter Wonderland</p>
+
+            <div class="countdown">
+                <div class="time-box"><h2 id="days">0</h2><span>Days</span></div>
+                <div class="time-box"><h2 id="hours">0</h2><span>Hours</span></div>
+                <div class="time-box"><h2 id="minutes">0</h2><span>Minutes</span></div>
+                <div class="time-box"><h2 id="seconds">0</h2><span>Seconds</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- GIFTS SECTION                                            -->
+    <!-- ========================================================= -->
+    <section class="gifts">
+        <h2>🎁 Santa's Gifts</h2>
+
+        <div class="gift-grid">
+            <div class="gift">🎄 Joy</div>
+            <div class="gift">❤️ Love</div>
+            <div class="gift">✨ Peace</div>
+            <div class="gift">🎉 Happiness</div>
+        </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- FOOTER                                                   -->
+    <!-- ========================================================= -->
+    <footer>
+        <p>© 2025 Santa Claus | Designed with Christmas Spirit</p>
+    </footer>
+
+    <!-- ========================================================= -->
+    <!-- JAVASCRIPT                                               -->
+    <!-- ========================================================= -->
+    <script>
+        /* =========================================================
+           SNOW ANIMATION
+        ========================================================= */
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        let snowflakes = [];
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        function createSnowflakes() {
+            snowflakes = [];
+            for (let i = 0; i < 200; i++) {
+                snowflakes.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 4 + 1,
+                    d: Math.random() * 1 + 0.5
+                });
+            }
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = "rgba(255,255,255,0.8)";
+            ctx.beginPath();
+            for (let flake of snowflakes) {
+                ctx.moveTo(flake.x, flake.y);
+                ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+            }
+            ctx.fill();
+            moveSnow();
+        }
+
+        function moveSnow() {
+            for (let flake of snowflakes) {
+                flake.y += flake.d;
+                if (flake.y > h) {
+                    flake.y = 0;
+                    flake.x = Math.random() * w;
+                }
+            }
+        }
+
+        function animateSnow() {
+            drawSnow();
+            requestAnimationFrame(animateSnow);
+        }
+
+        createSnowflakes();
+        animateSnow();
+
+        /* =========================================================
+           COUNTDOWN TIMER
+        ========================================================= */
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        function updateCountdown() {
+            const now = new Date();
+            const christmas = new Date(now.getFullYear(), 11, 25);
+            if (now > christmas) christmas.setFullYear(now.getFullYear() + 1);
+
+            const diff = christmas - now;
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            daysEl.textContent = d;
+            hoursEl.textContent = h;
+            minutesEl.textContent = m;
+            secondsEl.textContent = s;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+    </script>
+
+</body>
+</html>

@@ -9,5 +9,20 @@ pipeline {
                 build("portfolio-app")
             }
         }
+
+        stage('Test') {
+            steps {
+                test()
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            steps {
+                deploy("production")
+            }
+        }
     }
 }

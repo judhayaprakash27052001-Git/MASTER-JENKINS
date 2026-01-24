@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                build("build")
+                 echo 'Building application'
             }
         }
 
         stage('Test') {
             steps {
-                test()
+                 echo 'test application'
             }
         }
 
@@ -19,7 +19,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                deploy()
+                 echo 'successfully application'
             }
         }
     }

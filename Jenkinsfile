@@ -19,7 +19,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                deploy("production")
+                deploy()
             }
         }
     }
